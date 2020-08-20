@@ -12,17 +12,17 @@
 	<header>
 		<nav class="navbar navbar-light bg-light">
 				<a class="nav-item nav-link" href="index.jsp">Início</a>
-				<a class="nav-item nav-link" href="montador?uri-img=um.jpg&url-img=./img/">Imagem-1</a>
-				<a class="nav-item nav-link" href="montador?uri-img=dois.jpg&url-img=./img/">Imagem-2</a>
-				<a class="nav-item nav-link" href="montador?uri-img=tres.jpg&url-img=./img/">Imagem-3</a>
-				<a class="nav-item nav-link" href="montador?uri-img=quatro.jpg&url-img=./img/">Imagem-4</a>
-				<a class="nav-item nav-link" href="montador?uri-img=cinco.jpg&url-img=./img/">Imagem-5</a>
+				<a class="nav-item nav-link" href="montador?uri-img=um.jpg&url-img=./img/&wid-img=300px">Imagem-1</a>
+				<a class="nav-item nav-link" href="montador?uri-img=dois.jpg&url-img=./img/&wid-img=300px">Imagem-2</a>
+				<a class="nav-item nav-link" href="montador?uri-img=tres.jpg&url-img=./img/&wid-img=300px">Imagem-3</a>
+				<a class="nav-item nav-link" href="montador?uri-img=quatro.jpg&url-img=./img/&wid-img=300px">Imagem-4</a>
+				<a class="nav-item nav-link" href="montador?uri-img=cinco.jpg&url-img=./img/&wid-img=300px">Imagem-5</a>
 		</nav>
 	</header>
 	<div></div>
 	<section>
 		<figure>
-			<img alt="" width="" title="" src="">
+			<img alt="" width="<%=request.getAttribute("attrWidImg")%>" title="" src="<%=request.getAttribute("attrSrcImg")%>">
 			<figcaption></figcaption>
 		</figure>
 	</section>

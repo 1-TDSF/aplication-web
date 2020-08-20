@@ -38,6 +38,8 @@ public class BuildAction extends HttpServlet {
 		// método getParameter(passando o nome do parâmetro ou chave que é em formato de String)
 		String nomeImg    = request.getParameter("uri-img");
 		String caminhoImg = request.getParameter("url-img");
+		String tamanhoImg = request.getParameter("wid-img");
+		
 		
 		//Imprimindo para verificar a consistência dos dados
 		System.out.println("PATH OU URL: " + caminhoImg+nomeImg);
@@ -46,7 +48,7 @@ public class BuildAction extends HttpServlet {
 		// através do método setAttribute(passando o nomeDoAtributo,
 		// e o valor do atributo em si)
 		request.setAttribute("attrSrcImg", (caminhoImg+nomeImg));
-		
+		request.setAttribute("attrWidImg", (tamanhoImg));
 		
 		//Devemos criar um encaminhador(DISPATCHER) para levar
 		// as informações para a página de destino em questão ou
