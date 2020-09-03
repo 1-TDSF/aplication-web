@@ -15,7 +15,7 @@
 	</header>
 	<div></div>
 	<section>
-		<form>
+		<form action="cliente" method="post">
 			<fieldset>
 				<legend>Cadastro de Clientes</legend>
 				
@@ -64,7 +64,6 @@
 						<button type="submit" class="btn btn-success btn-lg">Cadastrar</button>	
 					</div>
 				</div>
-				
 				
 			</fieldset>
 		</form>
