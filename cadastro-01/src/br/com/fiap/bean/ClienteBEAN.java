@@ -1,5 +1,8 @@
 package br.com.fiap.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ClienteBEAN {
@@ -64,6 +67,14 @@ public class ClienteBEAN {
 	 */
 	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
+	}
+	public void setDataNasc(String dataNasc) {
+		SimpleDateFormat sf = new SimpleDateFormat();
+		try {
+			this.dataNasc = sf.parse(dataNasc);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
