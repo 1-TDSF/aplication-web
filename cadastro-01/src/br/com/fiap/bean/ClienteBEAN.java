@@ -69,7 +69,7 @@ public class ClienteBEAN {
 		this.dataNasc = dataNasc;
 	}
 	public void setDataNasc(String dataNasc) {
-		SimpleDateFormat sf = new SimpleDateFormat();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-DD-mm");
 		try {
 			this.dataNasc = sf.parse(dataNasc);
 		} catch (ParseException e) {

@@ -141,6 +141,10 @@ public class ClienteController extends HttpServlet {
 		//Criar o dispatcher utilizando a Interface RequestDispatcher
 		RequestDispatcher rd = request.getRequestDispatcher("lista.jsp");
 		
+		//Criar o encaminhamento passando o request e response
+		// utilizando o método forward.
+		rd.forward(request, response);
+		
 		//ENCAMINHAMENTO DOS DADOS ATRAVÉS DO REQUEST = FIM
 		
 		
