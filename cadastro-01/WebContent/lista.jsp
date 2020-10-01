@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="f"%>
 
 	
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
 
@@ -15,31 +16,45 @@
 </head>
 <body>
 
-	<header>
-		<nav></nav>
-	</header>
+<%@ include file="menu-header.html"%>
+
+
 	<div></div>
 	<section>
 	
-		<table border="1">
+		<table class="table table-hover">
 			<tr>
 				<th>ID</th>
 				<th>Nome</th>
 				<th>Dt Nasc</th>
-				<th>Gênero</th>
+				<th>GÃªnero</th>
 				<th>Tel</th>
-				<th>Editar</th>
+				<th colspan="2">Editar</th>
 			</tr>
 
+		<c:forEach var="cli" items="${listaCliente}" varStatus="id">
 			<tr>
-				<td>ID</td>
-				<td>${listaCliente[0].nome} ${listaCliente[0].sobrenome}</td>
-				<td>${listaCliente[0].dataNasc}</td>
-				<td>${listaCliente[0].genero}</td>
-				<td>${listaCliente[0].telefone }</td>
-				<td>Editar</td>
+				<td>${id.count}</td>
+				<td>${cli.nome} ${cli.sobrenome}</td>
+				<td><f:formatDate value="${cli.dataNasc}" pattern="dd/mm/yyyy"/></td>
+				
+				<c:choose>
+					<c:when test="${cli.genero eq 'm'}">
+						<td>Masculino</td>
+					</c:when>
+					<c:when test="${cli.genero eq 'f'}">
+						<td>Feminino</td>
+					</c:when>
+					<c:otherwise>
+						<td>Outros</td>
+					</c:otherwise>
+				</c:choose>
+				
+				<td>${cli.telefone }</td>
+				<td><a href="list-cli?id-cli=${id.count}">Atualizar</a></td>
+				<td><a href="del-cli?id-cli=${id.count}">Excluir</a></td>
 			</tr>
-					
+		</c:forEach>
 			
 		</table>
 		
@@ -51,3 +66,13 @@
 	<script type="text/javascript" src="./js/bootstrap.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

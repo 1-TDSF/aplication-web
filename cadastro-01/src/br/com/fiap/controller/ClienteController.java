@@ -1,6 +1,8 @@
 package br.com.fiap.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +15,7 @@ import br.com.fiap.bo.ClienteBO;
 /**
  * Servlet implementation class ClienteController
  */
-@WebServlet("/cliente")
+@WebServlet(urlPatterns = {"/cliente","/listagem", "/del-cli", "/list-cli"} )
 public class ClienteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,13 +33,17 @@ public class ClienteController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getRequestURI().equals("/cadastro-01/cliente")) {
-			
 			inserirCliente(request, response);
-			
+		}else if(request.getRequestURI().equals("/cadastro-01/listagem")) {
+			listarCliente(request, response);
+		}else if(request.getRequestURI().equals("/cadastro-01/list-cli")) {
+			listarCliente(request, response, Integer.parseInt(request.getParameter("id-cli")));
 		}
+	
 		
 	}
 	
+	//INSERE CLIENTE
 	public void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//Recepcão dos dados do formulário da página index.jsp.
@@ -82,5 +88,57 @@ public class ClienteController extends HttpServlet {
 		}
 		
 	}
-
+	
+	//LISTA TODOS OS CLIENTES
+	public void listarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Instanciar a classe BO
+		ClienteBO cb = new ClienteBO();
+		List<ClienteBEAN> lista = cb.listagemCliente();
+		
+		//Validação para verificar se a lista está nula.
+		if(lista != null) {
+			//Criamos um atributo no request para enviar a lista para a página JSP.
+			//Por se tratar de um Objeto no caso uma lista de Objetos, precisamos fazer um encaminhamento.
+			request.setAttribute("listaCliente", lista);
+			
+			//Agora criamos o encaminhamento para a página JSP.
+			request.getRequestDispatcher("lista.jsp").forward(request, response);
+		}
+		
+	}
+	
+	//LISTA CLIENTE BY ID
+	public void listarCliente(HttpServletRequest request, HttpServletResponse response, int idCli) throws ServletException, IOException {
+		
+		//Instanciar a classe BO.
+		ClienteBO cb = new ClienteBO();
+		
+		//Criando o objeto de Retorno
+		ClienteBEAN cli = cb.listagemCliente(idCli);
+		
+		//Realizando uma validação com o objeto.
+		if(cli != null) {
+			//Criar um atributo e inserir o objeto cli para retornar para uma página JSP.
+			request.setAttribute("objCli", cli);
+			
+			//Criar um atributo e inserir o ID do cliente
+			request.setAttribute("objIdCli", idCli);
+			
+			//Encaminhamento para a página atualiza.jsp
+			request.getRequestDispatcher("atualiza.jsp").forward(request, response);
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,18 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
 <title>CADASTRO</title>
 </head>
 <body>
 
-	<header>
-		<nav></nav>
-	</header>
+<%@ include file="menu-header.html"%>
+	
 	<div>
 		<h2>${param.msgStatus}</h2>
 	</div>
@@ -43,10 +42,10 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="idGen">Gênero</label>
+					<label class="control-label col-sm-2" for="idGen">GÃªnero</label>
 					<div class="col-sm-10">
 						<select class="form-control" name="txtGen" id="idGen" required="required">
-							<option value="0" selected="selected">Selecione uma Opção</option>
+							<option value="0" selected="selected">Selecione uma OpÃ§Ã£o</option>
 							<option value="m">Masculino</option>
 							<option value="f">Feminino</option>
 							<option value="o">Outros</option>
@@ -60,7 +59,9 @@
 						<input type="tel" class="form-control" name="txtTel" id="idTel" placeholder="Digite seu telefone" required="required">
 					</div>
 				</div>
-
+				<fieldset>
+				
+				</fieldset>
 				<div class="form-group">
 					<div class="col-sm-offset-10 col-sm-10">
 						<button type="submit" class="btn btn-success btn-lg">Cadastrar</button>	
