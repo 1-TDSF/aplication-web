@@ -49,6 +49,9 @@ public class ClienteController extends HttpServlet {
 			case "/cadastro-01/paginas":
 				paginacao(request, response);
 				break;
+			case "/cadastro-01/del-cli":
+				excluirCliente(request, response, Integer.parseInt(request.getParameter("id-cli")));
+				break;
 
 			default:
 				response.sendRedirect("index.jsp");
@@ -57,6 +60,25 @@ public class ClienteController extends HttpServlet {
 		
 	}
 	
+	public void excluirCliente(HttpServletRequest request, HttpServletResponse response, int idCli) throws IOException, ServletException {
+		//Instanciando a classe BO
+		ClienteBO cb =  new ClienteBO();
+		
+		//Recuperando o resultado da operação, passando o parâmetro para a exclusão do Cliente.
+		int status = cb.apagarCliente(idCli);
+		
+		//Verificando o status.
+		if(status > 0) {
+			// Criando uma mensagem de SUCESSO no atributo e enviando para a página index.JSP.
+			request.setAttribute("msgStatus", "Os dados foram EXCLUIDOS com SUCESSO!");
+			request.getRequestDispatcher("WEB-INF/paginas/inicio.jsp").forward(request, response);
+		}else {
+			// Criando uma mensagem de ERRO no atributo e enviando para a página index.JSP.
+			request.setAttribute("msgStatus", "Ocorreu um problema com a exclusão dos dados");
+			request.getRequestDispatcher("WEB-INF/error_page/erroPaginas.jsp").forward(request, response);
+		}
+	}
+
 	//PAGINAÇÃO
 	public void paginacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.getRequestDispatcher("WEB-INF/paginas/"+request.getParameter("pag")).forward(request, response);;

@@ -29,5 +29,10 @@ public class ClienteBO {
 		cd = new ClienteDAO();
 		return cd.update(cliB);
 	}
+	
+	public int apagarCliente(int idCli) {
+		cd = new ClienteDAO();
+		return cd.delete(idCli);
+	}
 
 }

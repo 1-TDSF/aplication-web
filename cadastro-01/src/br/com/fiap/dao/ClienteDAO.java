@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
+
 import br.com.fiap.bean.ClienteBEAN;
 import br.com.fiap.connection.ConnectionFactory;
 import jdk.nashorn.internal.objects.annotations.Where;
@@ -156,7 +158,7 @@ public class ClienteDAO {
 			ps.setString(2, cliB.getSobrenome());
 			ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(cliB.getDataNasc()));
 			ps.setString(4, cliB.getGenero());
-			ps.setLong(5, Long.parseLong(cliB.getTelefone()));
+			ps.setString(5, cliB.getTelefone());
 			
 			//Declarando o status da operação.
 			status = ps.executeUpdate();
@@ -212,9 +214,43 @@ public class ClienteDAO {
 		return status;
 	}
 
-	public boolean delete(int idCli) {
+	public int delete(int idCli) {
+		
+		String sql = null;
+		PreparedStatement ps = null;
+		int status = 0;
+		
+		try {
+			//Criando a instrução SQL
+			sql = "DELETE FROM TBL_CLIENTE WHERE ID_CLI = ?";
 			
-		return false;
+			//Criando a conexão.
+			ps = con.prepareStatement(sql);
+			
+			//Populando a Instrução SQL com o parâmetro.
+			ps.setInt(1, idCli);
+			
+			//Recupera o resultado da operação.
+			status = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			try {
+				ps.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return status;
 	}
 
 }
+
+
+
+
+
+
+

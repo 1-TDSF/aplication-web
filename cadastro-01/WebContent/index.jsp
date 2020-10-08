@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="error_page/erroPaginas.jsp?nome-pagina=INDEX" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
+<%@ include file="./WEB-INF/snippet/imports/libs-head.jsp"%>
 <title>CADASTRO</title>
 </head>
 <body>
@@ -73,7 +71,6 @@
 	</section>
 	<footer></footer>
 
-<script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
+	<%@ include file="./WEB-INF/snippet/imports/libs-footer.jsp"%>
 </body>
 </html>
