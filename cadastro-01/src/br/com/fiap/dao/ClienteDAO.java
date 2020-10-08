@@ -59,6 +59,7 @@ public class ClienteDAO {
 				//Construindo um novo objeto a cada nova iteração.
 				cli = new ClienteBEAN();
 				//Populando o objeto com os dados do result set
+				cli.setId(Integer.parseInt(rs.getNString("id_cli")));
 				cli.setNome(rs.getNString("nome_cli"));
 				cli.setSobrenome(rs.getNString("sobrenome_cli"));
 				cli.setDataNasc(rs.getNString("data_nasc_cli"));
@@ -112,6 +113,7 @@ public class ClienteDAO {
 				//Construindo um novo objeto a cada nova iteração.
 				cli = new ClienteBEAN();
 				//Populando o objeto com os dados do result set
+				cli.setId(Integer.parseInt(rs.getNString("id_cli")));
 				cli.setNome(rs.getNString("nome_cli"));
 				cli.setSobrenome(rs.getNString("sobrenome_cli"));
 				cli.setDataNasc(rs.getNString("data_nasc_cli"));
@@ -173,13 +175,45 @@ public class ClienteDAO {
 		return status;
 	}
 
-	public boolean update(ClienteBEAN cliB) {
+	public int update(ClienteBEAN cliB) {
+		String sql = null;
+		PreparedStatement ps = null;
+		int status = 0;
 		
-		return false;
+		try {
+		//CRIANDO A INSTRUÇÃO SQL
+		sql = "UPDATE TBL_CLIENTE SET NOME_CLI = ?,SOBRENOME_CLI = ?,DATA_NASC_CLI = TO_DATE(?,'yyyy-MM-dd'),"
+				+ "GENERO_CLI = ?,TEL_CLI = ? WHERE ID_CLI = ?";
+		
+		//Criando a conexão
+		ps = con.prepareStatement(sql);
+		 
+		//POPULANDO A CONEXÃO COM O OBJETO
+		ps.setString(1, cliB.getNome());
+		ps.setString(2, cliB.getSobrenome());
+		ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(cliB.getDataNasc()));
+		ps.setString(4, String.valueOf(cliB.getGenero()));
+		ps.setString(5, cliB.getTelefone());
+		ps.setInt(6, cliB.getId());
+		
+		//Gerando o retorno para avaliação
+		status = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			try {
+				ps.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return status;
 	}
 
 	public boolean delete(int idCli) {
-
+			
 		return false;
 	}
 

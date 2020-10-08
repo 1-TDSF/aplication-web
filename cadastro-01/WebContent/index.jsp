@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@ include file="menu-header.html"%>
+<%@ include file="./WEB-INF/snippet/menus/menu-header.html"%>
 	
 	<div>
 		<h2>${param.msgStatus}</h2>

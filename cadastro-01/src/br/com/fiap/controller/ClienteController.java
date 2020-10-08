@@ -15,7 +15,7 @@ import br.com.fiap.bo.ClienteBO;
 /**
  * Servlet implementation class ClienteController
  */
-@WebServlet(urlPatterns = {"/cliente","/listagem", "/del-cli", "/list-cli"} )
+@WebServlet(urlPatterns = {"/cliente","/listagem", "/del-cli", "/list-cli", "/update", "/paginas"} )
 public class ClienteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,17 +32,64 @@ public class ClienteController extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getRequestURI().equals("/cadastro-01/cliente")) {
-			inserirCliente(request, response);
-		}else if(request.getRequestURI().equals("/cadastro-01/listagem")) {
-			listarCliente(request, response);
-		}else if(request.getRequestURI().equals("/cadastro-01/list-cli")) {
-			listarCliente(request, response, Integer.parseInt(request.getParameter("id-cli")));
+		
+		switch (request.getRequestURI()) {
+			case "/cadastro-01/cliente":
+				inserirCliente(request, response);
+				break;
+			case "/cadastro-01/listagem":
+				listarCliente(request, response);
+				break;
+			case "/cadastro-01/list-cli":
+				listarCliente(request, response, Integer.parseInt(request.getParameter("id-cli")));
+				break;
+			case "/cadastro-01/update":
+				atualizarCliente(request, response);
+				break;
+			case "/cadastro-01/paginas":
+				paginacao(request, response);
+				break;
+
+			default:
+				response.sendRedirect("index.jsp");
+				break;
 		}
-	
 		
 	}
 	
+	//PAGINAÇÃO
+	public void paginacao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			request.getRequestDispatcher("WEB-INF/paginas/"+request.getParameter("pag")).forward(request, response);;
+	}
+
+	//ATUALIZANDO O CLIENTE
+	public void atualizarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		//Instanciar a classe BO
+		ClienteBO cb = new ClienteBO();
+		
+		//Instanciar a classe ClienteBEAN com os dados atualizados da página atualiza.jsp.
+		ClienteBEAN cliB = new ClienteBEAN();
+		cliB.setId(Integer.parseInt(request.getParameter("txtIdCli")));
+		cliB.setNome(request.getParameter("txtNm"));
+		cliB.setSobrenome(request.getParameter("txtSnm"));
+		cliB.setDataNasc(request.getParameter("txtDtNasc"));
+		cliB.setGenero(request.getParameter("txtGen"));
+		cliB.setTelefone(request.getParameter("txtTel"));
+		
+		//Recuperando o status da operação e passando o objeto para o BO.
+		int status = cb.atualizacaoCadastral(cliB);
+		
+		if(status > 0) {
+			//Criando uma mensagem de SUCESSO por parâmetro e enviando para a página index.jsp
+			response.sendRedirect("index.jsp?msgStatus=Os dados foram ATUALIZADOS com sucesso!");
+		}else {
+			//Criando uma mensagem de ERRO por parâmetro e enviando para a página index.jsp
+			response.sendRedirect("index.jsp?msgStatus=Ocorreu um erro ao tentar ATUALIZAR os dados!!");
+		}
+			
+	}
+
 	//INSERE CLIENTE
 	public void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -103,7 +150,7 @@ public class ClienteController extends HttpServlet {
 			request.setAttribute("listaCliente", lista);
 			
 			//Agora criamos o encaminhamento para a página JSP.
-			request.getRequestDispatcher("lista.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/lista.jsp").forward(request, response);
 		}
 		
 	}
@@ -126,10 +173,13 @@ public class ClienteController extends HttpServlet {
 			request.setAttribute("objIdCli", idCli);
 			
 			//Encaminhamento para a página atualiza.jsp
-			request.getRequestDispatcher("atualiza.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/atualiza.jsp").forward(request, response);
 		}
 		
 	}
+
+
+
 }
 
 

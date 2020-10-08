@@ -24,5 +24,10 @@ public class ClienteBO {
 		cd = new ClienteDAO();
 		return cd.select(idCli);
 	}
+	
+	public int atualizacaoCadastral(ClienteBEAN cliB) {
+		cd = new ClienteDAO();
+		return cd.update(cliB);
+	}
 
 }

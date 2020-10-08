@@ -8,6 +8,7 @@ import java.util.Date;
 public class ClienteBEAN {
 
 	private static final long serialVersionUID = 1L;
+	private int id;
 	private String nome;
 	private String sobrenome;
 	private Date dataNasc;
@@ -18,13 +19,29 @@ public class ClienteBEAN {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClienteBEAN(String nome, String sobrenome, Date dataNasc, String genero, String telefone) {
+
+	public ClienteBEAN(int id, String nome, String sobrenome, Date dataNasc, String genero, String telefone) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.dataNasc = dataNasc;
 		this.genero = genero;
 		this.telefone = telefone;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -68,6 +85,7 @@ public class ClienteBEAN {
 	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
 	}
+
 	public void setDataNasc(String dataNasc) {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-DD-mm");
 		try {
@@ -76,7 +94,7 @@ public class ClienteBEAN {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * @return the genero
 	 */
@@ -111,5 +129,5 @@ public class ClienteBEAN {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-		
+	
 }
