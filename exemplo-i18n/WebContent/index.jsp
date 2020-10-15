@@ -11,6 +11,13 @@
 </head>
 <body>
    
+   <div>
+   	<a href="aux?lingua=pt-br"><img src="./img/brazil.png"></a> 
+   	<a href="aux?lingua=en"><img src="./img/united.png"></a>
+   	<a href="aux?lingua=de"><img src="./img/germany.png"></a>
+   </div>
+   
+  
    <h1><f:message key="site.msg.saudacao"/> </h1>
    
    <div>
@@ -58,6 +65,13 @@
    		</fieldset>
    	</form>
    </div>
+   
+    <div>
+   	<a href="auxiliar.jsp?lingua=pt-br">Português</a> | 
+   	<a href="auxiliar.jsp?lingua=en">Inglês</a> |
+   	<a href="auxiliar.jsp?lingua=de">Alemão</a>
+   </div>
+   
    
 </body>
 </html>
